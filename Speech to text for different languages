@@ -18,6 +18,8 @@ with sr.Microphone() as source:         #To record your voice from a microphone 
         print("now recognizing")
         text = r.recognize_google(audio,language="de")    # use recognizer to convert our audio into text part using google cloud api for 
                                               # speech into text ypu can use other api's i,e IBM, BING, google web, and sphinx(offline).
+                                              # you can specify your desired language code in r.recognize_google(audio,language='something')
+                                             # function. I have used "de" for German language.
         print("Recgnized")
         print("You said : {}".format(text))     # try and except statements work like "if_else" statements 
     except:
