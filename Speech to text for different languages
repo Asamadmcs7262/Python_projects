@@ -1,0 +1,24 @@
+import speech_recognition as sr              #Speech recognition library not supported by Python 3.7.. 
+
+                                 # only Python 3.6 or below version support
+                            #  "pip install SpeechRecognition or pip install --user SpeechRecognition" */
+ 
+ 
+r = sr.Recognizer()                     #Create SpeechRecognizer instance*/       
+
+with sr.Microphone() as source:         #To record your voice from a microphone or your earphones*/
+
+    r.adjust_for_ambient_noise(source, duration=5)    # This function sets limit for background noise 
+                                                             # and takes 5 seconds u can change time*/
+    print("Speak Anything :")
+    
+    audio = r.listen(source)                     # your voice goes there*/
+    print("Done")
+    try:
+        print("now recognizing")
+        text = r.recognize_google(audio,language="de")    # use recognizer to convert our audio into text part using google cloud api for 
+                                              # speech into text ypu can use other api's i,e IBM, BING, google web, and sphinx(offline).
+        print("Recgnized")
+        print("You said : {}".format(text))     # try and except statements work like "if_else" statements 
+    except:
+        print("Sorry could not recognize your voice") 
