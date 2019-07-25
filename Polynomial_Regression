@@ -1,0 +1,44 @@
+                      # importing libraries
+                      
+import numpy as np
+import matplotlib.pyplot as plt         #plotting library
+import pandas as pd
+from sklearn.linear_model import LinearRegression   # sklearn library for ML
+from sklearn.preprocessing import PolynomialFeatures  
+
+
+dataset = pd.read_csv('https://s3.us-west-2.amazonaws.com/public.gamelab.fun/dataset/position_salaries.csv') # Read a file having dataset
+X = dataset.iloc[:, 1:2].values             
+y = dataset.iloc[:, 2].values
+
+
+lin_reg = LinearRegression()          # Linear regression class object just to compare the results of linear and polynomial regression
+lin_reg.fit(X, y)                   # function to find the best fit line touching all the data points 
+
+def viz_linear():                             # function for linear regression result plot
+    plt.scatter(X, y, color='red')
+    plt.plot(X, lin_reg.predict(X), color='blue')
+    plt.title('Truth or Bluff (Linear Regression)')
+    plt.xlabel('Position level')
+    plt.ylabel('Salary')
+    plt.show()
+    return
+viz_linear()
+
+
+# polynomial Regression
+poly_reg = PolynomialFeatures(degree=4)         # polynomial Regression class object and degree shows degree of polynomial
+X_poly = poly_reg.fit_transform(X)             
+pol_reg = LinearRegression()
+pol_reg.fit(X_poly, y)
+
+# Visualizing the Polymonial Regression results
+def viz_polymonial():
+    plt.scatter(X, y, color='red')
+    plt.plot(X, pol_reg.predict(poly_reg.fit_transform(X)), color='blue')
+    plt.title('Truth or Bluff (Linear Regression)')
+    plt.xlabel('Position level')
+    plt.ylabel('Salary')
+    plt.show()
+    return
+viz_polymonial()
